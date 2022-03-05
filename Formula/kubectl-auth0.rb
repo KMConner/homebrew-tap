@@ -6,7 +6,6 @@ class KubectlAuth0 < Formula
   desc "Sign in k8s cluster using auth0"
   homepage "https://github.com/KMConner/kubectl-auth0"
   version "0.2.0"
-  bottle :unneeded
 
   on_macos do
     if Hardware::CPU.intel?
