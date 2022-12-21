@@ -5,23 +5,35 @@
 class KubectlAuth0 < Formula
   desc "Sign in k8s cluster using auth0"
   homepage "https://github.com/KMConner/kubectl-auth0"
-  version "0.2.0"
+  version "0.2.2"
 
   on_macos do
-    if Hardware::CPU.intel?
-      url "https://github.com/KMConner/kubectl-auth0/releases/download/v0.2.0/kubectl-auth0_0.2.0_Darwin_x86_64.tar.gz"
-      sha256 "6865f81a08896cbb2f560063e4edfa9703b880be034fa5404c4d4dc83fca0a1f"
+    url "https://github.com/KMConner/kubectl-auth0/releases/download/v0.2.2/kubectl-auth0_0.2.2_Darwin_x86_64.tar.gz"
+    sha256 "3d779e3f84573789e1a345ac7c9ebe483f769170ca7c54ade392f427aa7dbc9f"
+
+    def install
+      bin.install "kubectl-auth0"
+    end
+
+    if Hardware::CPU.arm?
+      def caveats
+        <<~EOS
+          The darwin_arm64 architecture is not supported for the KubectlAuth0
+          formula at this time. The darwin_amd64 binary may work in compatibility
+          mode, but it might not be fully supported.
+        EOS
+      end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/KMConner/kubectl-auth0/releases/download/v0.2.0/kubectl-auth0_0.2.0_Linux_x86_64.tar.gz"
-      sha256 "056b3fa9ad63ba8da8781d77554a0e526d71c85cba98e326ee963464d7694a6a"
-    end
-  end
+      url "https://github.com/KMConner/kubectl-auth0/releases/download/v0.2.2/kubectl-auth0_0.2.2_Linux_x86_64.tar.gz"
+      sha256 "5246b5fd1cd3f6078ebe65cef19f1d27a0a48bf2e92862a1eee892d3630833d1"
 
-  def install
-    bin.install "kubectl-auth0"
+      def install
+        bin.install "kubectl-auth0"
+      end
+    end
   end
 end
